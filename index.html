@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registrasi & Langganan CKG Extension - DokterWeb</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #0284c7;
+      --primary-dark: #0369a1;
+      --primary-light: #e0f2fe;
+      --secondary: #0d9488;
+      --accent: #f59e0b;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --success: #16a34a;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Navbar */
+    .navbar {
+      background: #ffffff;
+      border-bottom: 1px solid var(--border);
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .brand-logo {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #0284c7, #0d9488);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 800;
+      font-size: 20px;
+      box-shadow: 0 4px 10px rgba(2, 132, 199, 0.3);
+    }
+
+    .brand-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--text);
+      line-height: 1.2;
+    }
+
+    .brand-subtitle {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* Container */
+    .container {
+      max-width: 1040px;
+      margin: 36px auto;
+      padding: 0 20px;
+      flex: 1;
+      width: 100%;
+    }
+
+    .header-section {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .header-tag {
+      display: inline-block;
+      padding: 4px 12px;
+      background: var(--primary-light);
+      color: var(--primary-dark);
+      font-size: 12px;
+      font-weight: 700;
+      border-radius: 9999px;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .header-title {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .header-desc {
+      color: var(--text-muted);
+      font-size: 14.5px;
+      max-width: 580px;
+      margin: 0 auto;
+    }
+
+    .alert-banner {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-radius: 12px;
+      padding: 12px 18px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: #1e40af;
+      font-size: 13.5px;
+    }
+
+    /* Layout Split */
+    .checkout-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 28px;
+      align-items: flex-start;
+    }
+
+    @media (max-width: 860px) {
+      .checkout-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Cards */
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 26px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .card-title {
+      font-size: 17px;
+      font-weight: 800;
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text);
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* Forms */
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: var(--text);
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 11px 14px;
+      font-size: 13.5px;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      outline: none;
+      transition: all 0.2s ease;
+      background: #ffffff;
+    }
+
+    .form-input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+    }
+
+    .form-hint {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* Plan Selection Grid */
+    .plans-container {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    .plan-card {
+      position: relative;
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      background: #fff;
+    }
+
+    .plan-card:hover {
+      border-color: #cbd5e1;
+      transform: translateY(-1px);
+    }
+
+    .plan-card.active {
+      border-color: var(--primary);
+      background: #f0f9ff;
+    }
+
+    .plan-radio {
+      display: none;
+    }
+
+    .plan-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .plan-check {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 2px solid #cbd5e1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+
+    .plan-card.active .plan-check {
+      border-color: var(--primary);
+      background: var(--primary);
+    }
+
+    .plan-card.active .plan-check::after {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #ffffff;
+    }
+
+    .plan-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .plan-desc {
+      font-size: 11.5px;
+      color: var(--text-muted);
+    }
+
+    .plan-pricing {
+      text-align: right;
+    }
+
+    .plan-price {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--primary-dark);
+    }
+
+    .badge-popular {
+      position: absolute;
+      top: -8px;
+      right: 14px;
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      color: white;
+      font-size: 10px;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 9999px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Submit Button */
+    .btn-submit {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, #0284c7, #026ca3);
+      color: #ffffff;
+      font-size: 15px;
+      font-weight: 700;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
+      margin-top: 20px;
+    }
+
+    .btn-submit:hover:not(:disabled) {
+      background: linear-gradient(135deg, #0369a1, #02507d);
+      transform: translateY(-1px);
+    }
+
+    .btn-submit:disabled {
+      opacity: 0.65;
+      cursor: not-allowed;
+    }
+
+    /* Summary Card */
+    .summary-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      position: sticky;
+      top: 90px;
+    }
+
+    .summary-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      font-size: 13.5px;
+    }
+
+    .summary-total {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 2px dashed var(--border);
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--primary-dark);
+    }
+
+    .feature-list {
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .feature-item svg {
+      width: 16px;
+      height: 16px;
+      color: var(--success);
+      flex-shrink: 0;
+    }
+
+    /* Success / Result State */
+    .payment-modal {
+      display: none;
+      background: #ffffff;
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      padding: 32px 24px;
+      text-align: center;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .token-display-box {
+      background: #f1f5f9;
+      border: 2px dashed #94a3b8;
+      border-radius: 12px;
+      padding: 16px;
+      margin: 18px 0;
+      text-align: center;
+    }
+
+    .token-text {
+      font-family: monospace;
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--primary-dark);
+      letter-spacing: 2px;
+    }
+
+    .btn-copy {
+      margin-top: 8px;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .pulse-ring {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.7);
+      animation: pulse 1.5s infinite;
+      display: inline-block;
+      margin-right: 6px;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.7); }
+      70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(245, 158, 11, 0); }
+      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <a href="#" class="brand">
+      <div class="brand-logo">C</div>
+      <div>
+        <div class="brand-title">CKG Assistant Cloud</div>
+        <div class="brand-subtitle">Portal Akun & Lisensi Multi-Device</div>
+      </div>
+    </a>
+    <div>
+      <span style="font-size: 12px; font-weight: 600; color: var(--text-muted);">Mayar.id Instant QRIS Gateway</span>
+    </div>
+  </nav>
+
+  <!-- Main Container -->
+  <div class="container">
+
+    <!-- Header Section -->
+    <div class="header-section">
+      <span class="header-tag">Aktivasi Akun Multi-Device</span>
+      <h1 class="header-title">Daftar & Berlangganan CKG Extension</h1>
+      <p class="header-desc">
+        Akses tanpa batas untuk Pendaftaran (Balita, Umum, Sekolah, Lansia), Pelayanan Otomatis, dan Runner Terintegrasi. Dapat digunakan di semua PC Faskes Anda.
+      </p>
+    </div>
+
+    <!-- Alert jika redirect karena kuota trial habis -->
+    <div id="trial-alert" class="alert-banner" style="display: none;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <div>
+        <strong>Masa Uji Coba Gratis Ekstensi Anda Telah Habis!</strong><br>
+        Selesaikan pendaftaran akun berikut untuk langsung membuka seluruh akses PRO secara otomatis.
+      </div>
+    </div>
+
+    <!-- Checkout Grid -->
+    <div class="checkout-grid" id="checkout-view">
+      
+      <!-- Form Input -->
+      <div class="card">
+        <h2 class="card-title">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          1. Data Akun Pengguna
+        </h2>
+
+        <form id="form-register">
+          <div class="form-group">
+            <label class="form-label">Nama Lengkap / Nama Faskes *</label>
+            <input type="text" id="input-nama" class="form-input" placeholder="Contoh: Puskesmas Sedau / dr. Rizki" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Nomor WhatsApp Aktif *</label>
+            <input type="tel" id="input-wa" class="form-input" placeholder="Contoh: 08123456789" required>
+            <div class="form-hint">Digunakan untuk konfirmasi invoice dan pemulihan akun lisensi.</div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Alamat Email Aktif *</label>
+            <input type="email" id="input-email" class="form-input" placeholder="user@gmail.com" required>
+            <div class="form-hint">Email ini digunakan untuk login di ekstensi Chrome mana saja.</div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Buat Password Akun *</label>
+            <input type="password" id="input-password" class="form-input" placeholder="Minimal 6 karakter" minlength="6" required>
+          </div>
+
+          <!-- Pilihan Paket -->
+          <div style="margin-top: 24px;">
+            <label class="form-label" style="font-size: 14px; margin-bottom: 10px;">2. Pilih Paket Langganan *</label>
+            <div class="plans-container">
+
+              <!-- Harian -->
+              <label class="plan-card" data-plan="daily">
+                <input type="radio" name="plan" value="daily" class="plan-radio">
+                <div class="plan-info">
+                  <div class="plan-check"></div>
+                  <div>
+                    <div class="plan-name">⚡ Paket Harian</div>
+                    <div class="plan-desc">Akses penuh selama 24 jam</div>
+                  </div>
+                </div>
+                <div class="plan-pricing">
+                  <div class="plan-price">Rp 5.000</div>
+                </div>
+              </label>
+
+              <!-- Mingguan -->
+              <label class="plan-card" data-plan="weekly">
+                <input type="radio" name="plan" value="weekly" class="plan-radio">
+                <div class="plan-info">
+                  <div class="plan-check"></div>
+                  <div>
+                    <div class="plan-name">📅 Paket 1 Minggu</div>
+                    <div class="plan-desc">Akses tanpa batas selama 7 hari</div>
+                  </div>
+                </div>
+                <div class="plan-pricing">
+                  <div class="plan-price">Rp 50.000</div>
+                </div>
+              </label>
+
+              <!-- Bulanan (Default Featured) -->
+              <label class="plan-card active" data-plan="monthly">
+                <span class="badge-popular">Paling Populer</span>
+                <input type="radio" name="plan" value="monthly" class="plan-radio" checked>
+                <div class="plan-info">
+                  <div class="plan-check"></div>
+                  <div>
+                    <div class="plan-name">🌟 Paket 1 Bulan</div>
+                    <div class="plan-desc">Akses tanpa batas selama 30 hari penuh</div>
+                  </div>
+                </div>
+                <div class="plan-pricing">
+                  <div class="plan-price">Rp 75.000</div>
+                </div>
+              </label>
+
+              <!-- Tahunan -->
+              <label class="plan-card" data-plan="yearly">
+                <input type="radio" name="plan" value="yearly" class="plan-radio">
+                <div class="plan-info">
+                  <div class="plan-check"></div>
+                  <div>
+                    <div class="plan-name">🏢 Paket 1 Tahun</div>
+                    <div class="plan-desc">Akses tanpa batas selama 365 hari (Hemat)</div>
+                  </div>
+                </div>
+                <div class="plan-pricing">
+                  <div class="plan-price">Rp 650.000</div>
+                </div>
+              </label>
+
+              <!-- Lifetime -->
+              <label class="plan-card" data-plan="lifetime">
+                <span class="badge-popular" style="background: linear-gradient(135deg, #0d9488, #0f766e);">Permanen</span>
+                <input type="radio" name="plan" value="lifetime" class="plan-radio">
+                <div class="plan-info">
+                  <div class="plan-check"></div>
+                  <div>
+                    <div class="plan-name">👑 Paket Seumur Hidup (Lifetime)</div>
+                    <div class="plan-desc">Akses permanen selamanya tanpa tagihan lagi</div>
+                  </div>
+                </div>
+                <div class="plan-pricing">
+                  <div class="plan-price">Rp 950.000</div>
+                </div>
+              </label>
+
+            </div>
+          </div>
+
+          <button type="submit" id="btn-submit" class="btn-submit">
+            <span>Lanjut ke Pembayaran QRIS</span>
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </button>
+        </form>
+      </div>
+
+      <!-- Ringkasan Order -->
+      <div class="summary-card">
+        <h3 style="font-size: 15px; font-weight: 800; margin-bottom: 16px; color: var(--text);">Ringkasan Pesanan</h3>
+        
+        <div class="summary-item">
+          <span style="color: var(--text-muted);">Item</span>
+          <span id="sum-plan-name" style="font-weight: 600;">Paket 1 Bulan (30 Hari)</span>
+        </div>
+        <div class="summary-item">
+          <span style="color: var(--text-muted);">Metode Pembayaran</span>
+          <span style="font-weight: 600;">QRIS & Virtual Account</span>
+        </div>
+        <div class="summary-item">
+          <span style="color: var(--text-muted);">Biaya Layanan</span>
+          <span style="color: var(--success); font-weight: 700;">Gratis (Rp 0)</span>
+        </div>
+
+        <div class="summary-total">
+          <span>Total Tagihan</span>
+          <span id="sum-total-price">Rp 75.000</span>
+        </div>
+
+        <div class="feature-list">
+          <div class="feature-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Multi-Device: Login di banyak komputer faskes</span>
+          </div>
+          <div class="feature-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Unlimited Pendaftaran Balita, Umum, Sekolah, Lansia</span>
+          </div>
+          <div class="feature-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Fitur Runner Otomatis terbuka penuh</span>
+          </div>
+          <div class="feature-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Aktivasi instan otomatis detik itu juga</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- State Pembayaran Berlangsung / QRIS -->
+    <div id="payment-waiting-card" class="card payment-modal">
+      <div style="font-size: 42px; margin-bottom: 12px;">💳</div>
+      <h2 style="font-size: 22px; font-weight: 800; margin-bottom: 8px;">Menunggu Pembayaran</h2>
+      <p style="color: var(--text-muted); font-size: 14px; max-width: 480px; margin: 0 auto 18px;">
+        Silakan selesaikan pembayaran invoice Mayar Anda melalui tab yang baru dibuka atau klik tombol di bawah:
+      </p>
+
+      <div style="margin: 18px 0;">
+        <a id="btn-open-payment" href="#" target="_blank" class="btn-submit" style="display: inline-flex; width: auto; padding: 12px 28px; text-decoration: none;">
+          Buka Halaman Pembayaran Mayar / QRIS
+        </a>
+      </div>
+
+      <div style="display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 13px; color: var(--text-muted); margin-top: 16px;">
+        <span class="pulse-ring"></span>
+        <span id="poll-status-text">Memeriksa status pembayaran secara berkala...</span>
+      </div>
+    </div>
+
+    <!-- State Sukses Terbayar -->
+    <div id="payment-success-card" class="card payment-modal" style="border-color: #86efac; background: #f0fdf4;">
+      <div style="font-size: 48px; margin-bottom: 12px;">🎉</div>
+      <h2 style="font-size: 24px; font-weight: 800; color: #166534; margin-bottom: 6px;">Pembayaran Terverifikasi & Akun Aktif!</h2>
+      <p style="color: #15803d; font-size: 14px; max-width: 520px; margin: 0 auto;">
+        Selamat, akun Anda telah resmi aktif. Anda sekarang dapat menggunakan ekstensi CKG di komputer mana saja tanpa batasan.
+      </p>
+
+      <div class="token-display-box">
+        <div style="font-size: 12px; font-weight: 700; color: #64748b; margin-bottom: 4px;">TOKEN LISENSI ANDA:</div>
+        <div class="token-text" id="display-license-token">CKG-XXXX-XXXX-XXXX</div>
+        <button class="btn-copy" id="btn-copy-token">📋 Salin Token</button>
+      </div>
+
+      <div style="background: #ffffff; border: 1px solid #bbf7d0; border-radius: 12px; padding: 16px; max-width: 480px; margin: 16px auto; text-align: left; font-size: 13px;">
+        <strong style="display: block; margin-bottom: 6px; color: #14532d;">Cara Masuk di Ekstensi CKG:</strong>
+        <ol style="padding-left: 20px; line-height: 1.6; color: #166534;">
+          <li>Buka ekstensi CKG di browser Chrome Anda (pada komputer mana saja).</li>
+          <li>Klik tombol <strong>"Masuk Akun"</strong> di pojok kanan atas sidepanel.</li>
+          <li>Masukkan Email & Password yang baru Anda buat (atau masukkan Token Lisensi di atas).</li>
+          <li>Akun langsung aktif dan seluruh fitur PRO terbuka penuh!</li>
+        </ol>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // Konfigurasi Endpoint Worker API
+    const WORKER_URL = "https://ckg-subscription-api.wahyudarizki91.workers.dev";
+
+    const planPrices = {
+      daily: { name: "Paket Harian (1 Hari)", price: "Rp 5.000", num: 5000 },
+      weekly: { name: "Paket 1 Minggu (7 Hari)", price: "Rp 50.000", num: 50000 },
+      monthly: { name: "Paket 1 Bulan (30 Hari)", price: "Rp 75.000", num: 75000 },
+      yearly: { name: "Paket 1 Tahun (365 Hari)", price: "Rp 650.000", num: 650000 },
+      lifetime: { name: "Paket Seumur Hidup (Permanen)", price: "Rp 950.000", num: 950000 }
+    };
+
+    let selectedPlan = "monthly";
+    let activeOrderId = null;
+    let pollInterval = null;
+
+    // Baca query params (misal ?reason=balita)
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get("reason")) {
+      document.getElementById("trial-alert").style.display = "flex";
+    }
+
+    // Handle Pilihan Paket
+    document.querySelectorAll(".plan-card").forEach(card => {
+      card.addEventListener("click", () => {
+        document.querySelectorAll(".plan-card").forEach(c => c.classList.remove("active"));
+        card.classList.add("active");
+        const radio = card.querySelector(".plan-radio");
+        radio.checked = true;
+        selectedPlan = radio.value;
+
+        // Update Ringkasan
+        const plan = planPrices[selectedPlan];
+        document.getElementById("sum-plan-name").textContent = plan.name;
+        document.getElementById("sum-total-price").textContent = plan.price;
+      });
+    });
+
+    // Form Submit Checkout
+    const form = document.getElementById("form-register");
+    const btnSubmit = document.getElementById("btn-submit");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const nama = document.getElementById("input-nama").value.trim();
+      const no_wa = document.getElementById("input-wa").value.trim();
+      const email = document.getElementById("input-email").value.trim();
+      const password = document.getElementById("input-password").value;
+
+      btnSubmit.disabled = true;
+      btnSubmit.innerHTML = `<span>⏳ Menyiapkan Transaksi QRIS...</span>`;
+
+      try {
+        const res = await fetch(`${WORKER_URL}/api/auth/register-and-pay`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ nama, no_wa, email, password, plan: selectedPlan })
+        });
+
+        const data = await res.json();
+        if (!res.ok || !data.ok) {
+          throw new Error(data.error || "Gagal membuat transaksi pendaftaran");
+        }
+
+        activeOrderId = data.order_id;
+        const paymentUrl = data.payment_url;
+
+        // Buka link invoice Mayar di tab baru
+        if (paymentUrl) {
+          window.open(paymentUrl, "_blank");
+          document.getElementById("btn-open-payment").href = paymentUrl;
+        }
+
+        // Tampilkan State Waiting & mulai Polling Webhook
+        document.getElementById("checkout-view").style.display = "none";
+        document.getElementById("payment-waiting-card").style.display = "block";
+
+        startPaymentPolling(activeOrderId, email, data.license_token);
+
+      } catch (err) {
+        alert("Error: " + err.message);
+        btnSubmit.disabled = false;
+        btnSubmit.innerHTML = `<span>Lanjut ke Pembayaran QRIS</span><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>`;
+      }
+    });
+
+    // Polling Verifikasi Pembayaran Realtime
+    function startPaymentPolling(orderId, email, fallbackLicense) {
+      if (pollInterval) clearInterval(pollInterval);
+
+      pollInterval = setInterval(async () => {
+        try {
+          const res = await fetch(`${WORKER_URL}/api/payment/check?order_id=${encodeURIComponent(orderId)}`);
+          const data = await res.json();
+
+          if (data && data.is_paid) {
+            clearInterval(pollInterval);
+            showSuccessCard(data.license_token || fallbackLicense);
+          }
+        } catch (e) {
+          console.warn("Polling check...", e);
+        }
+      }, 3500);
+    }
+
+    function showSuccessCard(licenseToken) {
+      document.getElementById("payment-waiting-card").style.display = "none";
+      document.getElementById("payment-success-card").style.display = "block";
+      document.getElementById("display-license-token").textContent = licenseToken || "CKG-ACTIVE-PRO";
+    }
+
+    // Tombol Salin Token
+    document.getElementById("btn-copy-token").addEventListener("click", () => {
+      const token = document.getElementById("display-license-token").textContent;
+      navigator.clipboard.writeText(token).then(() => {
+        alert("Token lisensi berhasil disalin ke clipboard!");
+      });
+    });
+  </script>
+
+</body>
+</html>
+
